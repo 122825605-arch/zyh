@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网络游戏指南</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a2e;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0f0f1a;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            color: #7b2cbf;
+        }
+        .banner {
+            height: 400px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .banner-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        .banner-slide.active {
+            opacity: 1;
+        }
+        .banner h1 {
+            font-size: 3rem;
+            z-index: 2;
+            position: relative;
+        }
+        .search-container {
+            padding: 2rem 5%;
+            background-color: #0f0f1a;
+            text-align: center;
+        }
+        .search-container input {
+            width: 70%;
+            padding: 0.8rem;
+            border-radius: 4px 0 0 4px;
+            border: none;
+        }
+        .search-container button {
+            padding: 0.8rem 1.5rem;
+            background-color: #7b2cbf;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .content {
+            padding: 2rem 5%;
+        }
+        .game-card {
+            background-color: #000;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(123, 44, 191, 0.3);
+        }
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .game-card:hover img {
+            transform: scale(1.05);
+        }
+        .game-card h2 {
+            padding: 1rem;
+            margin: 0;
+        }
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(15, 15, 26, 0.9);
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .music-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        .music-btn:hover {
+            background-color: rgba(123, 44, 191, 0.3);
+        }
+        .volume-slider {
+            width: 80px;
+            accent-color: #7b2cbf;
+        }
+        .music-info {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            .volume-slider {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">游戏指南</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">首页</a></li>
+                <li><a href="https://122825605-arch.github.io/xiaobaiex2/">游戏分类</a></li>
+                <li><a href="#">排行榜</a></li>
+                <li><a href="#">社区</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="banner">
+        <div class="banner-slide active" style="background-image: url('https://picsum.photos/1600/900?game=1')"></div>
+        <div class="banner-slide" style="background-image: url('https://picsum.photos/1600/900?game=2')"></div>
+        <div class="banner-slide" style="background-image: url('https://picsum.photos/1600/900?game=3')"></div>
+        <h1>探索无限游戏世界</h1>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" placeholder="搜索游戏...">
+        <button>搜索</button>
+
+    <script>
+        // 轮播图功能
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // 自动轮播
+        setInterval(nextSlide, 5);
+
+        // 音乐播放器功能
+        const audio = new Audio();
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const musicInfo = document.getElementById('musicInfo');
+
+        let currentMusicIndex = 0;
+        let isPlaying = false;
+
+        function loadMusic(index) {
+            audio.src = musicList[index].url;
+            musicInfo.textContent = musicList[index].title;
+        }
+
+        function playNext() {
+            currentMusicIndex = (currentMusicIndex + 1) % musicList.length;
+            loadMusic(currentMusicIndex);
+            if (isPlaying) {
+                audio.play();
+            }
+        }
+
+        function playPrev() {
+            currentMusicIndex = (currentMusicIndex - 1 + musicList.length) % musicList.length;
+            loadMusic(currentMusicIndex);
+            if (isPlaying) {
+                audio.play();
+            }
+        }
+
+        // 事件监听
+        playBtn.addEventListener('click', togglePlay);
+        nextBtn.addEventListener('click', playNext);
+        prevBtn.addEventListener('click', playPrev);
+
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value;
+        });
+
+        // 初始化
+        loadMusic(currentMusicIndex);
+        audio.volume = volumeSlider.value;
+
+        // 搜索功能增强
+        const searchInput = document.querySelector('.search-container input');
+        const searchButton = document.querySelector('.search-container button');
+
+        searchButton.addEventListener('click', function() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                alert(`搜索: ${searchTerm}\n此功能需要后端支持`);
+        });
+
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+    </script>
+	<section class="content">
+	    <div class="game-card">
+	        <div class="game-image"></div>
+	        <div class="game-info">
+	            <h3>热门游戏</h3>
+	            <a href="#" class="read-more">了解更多</a >
+	        </div>
+	    </div>
+	</section>
+	<footer>
+	    <p>&copy; 2025 游戏指南. 保留所有权利.</p >
+	</footer>
+</body>
+</html>
